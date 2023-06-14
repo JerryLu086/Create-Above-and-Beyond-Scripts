@@ -1404,7 +1404,7 @@ function oreProcessing(event) {
 
 		event.smelting(Item.of(nugget, 3), crushed)
 		event.smelting(Item.of(nugget, 1), dust).cookingTime(40)
-		event.recipes.createMilling([Item.of(crushed, 1), stone], ore)
+		event.recipes.createMilling([Item.of(crushed, 1), (name.equals('cobalt') ? netherrack : stone)], ore)
 		event.recipes.createMilling([Item.of(dust, 3)], crushed)
 		event.recipes.createCrushing([Item.of(dust, 3), Item.of(dust, 3).withChance(0.5)], crushed)
 		event.recipes.thermal.pulverizer([Item.of(dust, 6)], crushed).energy(15000)

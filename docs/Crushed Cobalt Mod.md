@@ -57,7 +57,13 @@ event.recipes.thermal.pulverizer(KJ("cobalt_dust"), TC('cobalt_ingot')).energy(2
 let crushed = (name.equals('cobalt') ? KJ('crushed_' + name + '_ore') : CR('crushed_' + name + '_ore'))
 ```
 
-6. Add the line at #1475
+6. Replace the line at $1407 with
+
+```javascript
+event.recipes.createMilling([Item.of(crushed, 1), (name.equals('cobalt') ? netherrack : stone)], ore)
+```
+
+7. Add the line at #1475
 
 ```javascript
 dust_process('cobalt', TC('cobalt_ingot'), TC('cobalt_nugget'), KJ('cobalt_dust'), TC('cobalt_ore'), MC('iron_nugget'), 'iron')
