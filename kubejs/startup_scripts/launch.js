@@ -70,7 +70,6 @@ onEvent('item.registry', event => {
 			.displayName(`Slimy Fern Blend`)
 	}
 
-	// Misc / Integration
 	event.create('crushed_cobalt_ore').texture("kubejs:item/crushed_cobalt_ore").displayName('Crushed Cobalt Ore')
 	event.create('cobalt_dust').texture("kubejs:item/cobalt_dust").displayName('Cobalt Dust')
 
