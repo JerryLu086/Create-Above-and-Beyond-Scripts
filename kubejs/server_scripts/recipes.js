@@ -1256,6 +1256,7 @@ function trickierWindmills(event) {
 	event.remove({ output: 'create:sail_frame' })
 	event.remove({ output: 'create:white_sail' })
 	event.shapeless('create:sail_frame', ['create:white_sail'])
+	event.shapeless('create:white_sail', ['create:sail_frame', '#appliedenergistics2:wool'])
 	event.shaped('2x create:white_sail', [
 		'SSS',
 		'NAN',
@@ -1397,14 +1398,17 @@ function oreProcessing(event) {
 	event.recipes.createMilling([TE('niter_dust')], TE('niter')).processingTime(500)
 	event.recipes.createMilling([TE('apatite_dust')], TE('apatite')).processingTime(500)
 
-	let dust_process = (name, ingot, nugget, dust, ore, byproduct, fluid_byproduct_name) => {
-		let crushed = (name.equals('cobalt') ? KJ('crushed_' + name + '_ore') : CR('crushed_' + name + '_ore'))
-		let fluid = TC("molten_" + name)
-		let fluid_byproduct = TC("molten_" + fluid_byproduct_name)
+	let generic_ore_process = (name, ingot_path, nugget_path, dust_path, ore_path, crushed_path, crushed_rock, byproduct, fluid_path, fluid_byproduct) => {
+	    let ingot = ingot_path(name + '_ingot')
+	    let nugget = nugget_path(name + '_nugget')
+		let dust = dust_path(name + '_dust')
+		let ore = ore_path(name + '_ore')
+		let crushed = crushed_path('crushed_' + name + '_ore')
+		let fluid = fluid_path('molten_' + name)
 
 		event.smelting(Item.of(nugget, 3), crushed)
 		event.smelting(Item.of(nugget, 1), dust).cookingTime(40)
-		event.recipes.createMilling([Item.of(crushed, 1), (name.equals('cobalt') ? netherrack : stone)], ore)
+		event.recipes.createMilling([Item.of(crushed, 1), crushed_rock], ore)
 		event.recipes.createMilling([Item.of(dust, 3)], crushed)
 		event.recipes.createCrushing([Item.of(dust, 3), Item.of(dust, 3).withChance(0.5)], crushed)
 		event.recipes.thermal.pulverizer([Item.of(dust, 6)], crushed).energy(15000)
@@ -1466,13 +1470,13 @@ function oreProcessing(event) {
 
 	}
 
-	dust_process('nickel', TE('nickel_ingot'), TE('nickel_nugget'), TE('nickel_dust'), TE('nickel_ore'), CR('copper_nugget'), 'copper')
-	dust_process('lead', TE('lead_ingot'), TE('lead_nugget'), TE('lead_dust'), TE('lead_ore'), MC('iron_nugget'), 'iron')
-	dust_process('iron', MC('iron_ingot'), MC('iron_nugget'), TE('iron_dust'), MC('iron_ore'), TE('nickel_nugget'), 'nickel')
-	dust_process('gold', MC('gold_ingot'), MC('gold_nugget'), TE('gold_dust'), MC('gold_ore'), TE('cinnabar'), 'zinc')
-	dust_process('copper', CR('copper_ingot'), CR('copper_nugget'), TE('copper_dust'), CR('copper_ore'), MC('gold_nugget'), 'gold')
-	dust_process('zinc', CR('zinc_ingot'), CR('zinc_nugget'), KJ('zinc_dust'), CR('zinc_ore'), TE('sulfur'), 'lead')
-	dust_process('cobalt', TC('cobalt_ingot'), TC('cobalt_nugget'), KJ('cobalt_dust'), TC('cobalt_ore'), MC('iron_nugget'), 'iron')
+	generic_ore_process('nickel', TE, TE, TE, TE, CR, stone, CR('copper_nugget'), TC, TC('molten_copper'))
+	generic_ore_process('lead', TE, TE, TE, TE, CR, stone, MC('iron_nugget'), TC, TC('molten_iron'))
+	generic_ore_process('iron', MC, MC, TE, MC, CR, stone, TE('nickel_nugget'), TC, TC('molten_nickel'))
+	generic_ore_process('gold', MC, MC, TE, MC, CR, stone, TE('cinnabar'), TC, TC('molten_zinc'))
+	generic_ore_process('copper', CR, CR, TE, CR, CR, stone, MC('gold_nugget'), TC, TC('molten_gold'))
+	generic_ore_process('zinc', CR, CR, KJ, CR, CR, stone, TE('sulfur'), TC, TC('molten_lead'))
+	generic_ore_process('cobalt', TC, TC, KJ, TC, KJ, netherrack, MC('iron_nugget'), TC, TC('molten_iron'))
 
 	event.replaceInput({ id: TE("machine/smelter/smelter_iron_ore") }, MC('iron_ore'), CR('crushed_iron_ore'))
 	event.replaceInput({ id: TE("machine/smelter/smelter_gold_ore") }, MC('gold_ore'), CR('crushed_gold_ore'))
@@ -1535,6 +1539,8 @@ function alloys(event) {
 	event.recipes.thermal.smelter(TC("rose_gold_ingot", 2), [CR("copper_ingot"), MC("gold_ingot")])
 	event.recipes.thermal.smelter(TE("constantan_ingot", 2), [CR("copper_ingot"), TE("nickel_ingot")])
 
+    event.replaceInput({ id: TE("machine/smelter/smelter_iron_ore") }, MC('iron_ore'), CR('crushed_iron_ore'))
+    event.replaceInput({ id: TE("machine/smelter/smelter_gold_ore") }, MC('gold_ore'), CR('crushed_gold_ore'))
 }
 
 function electronTube(event) {

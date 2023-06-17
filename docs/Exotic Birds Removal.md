@@ -4,7 +4,7 @@ Many people don't like this mod in their pack mainly because it's too laggy.
 
 If you feel so, feel free to do this.
 
-## Mod folder
+## Mods folder
 
 Simply remove the Exotic Birds' jar file from it.
 
@@ -63,3 +63,6 @@ event.get("forge:raw_chicken").add("exoticbirds:raw_birdmeat")
 	]
 }
 ```
+
+So sad you have to go, duckie, but this is what happens when you weird birds make the performance drop.
+(Added this line because I actually felt bad for them lol)
