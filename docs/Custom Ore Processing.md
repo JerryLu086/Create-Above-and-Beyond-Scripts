@@ -97,11 +97,11 @@ as args (which I just found out yesterday xD).
 
 ```javascript
     generic_ore_process('nickel', TE, TE, TE, TE, CR, stone, CR('copper_nugget'), TC, TC('molten_copper'))
-	generic_ore_process('lead', TE, TE, TE, TE, CR, stone, MC('iron_nugget'), TC, TC('molten_iron'))
-	generic_ore_process('iron', MC, MC, TE, MC, CR, stone, TE('nickel_nugget'), TC, TC('molten_nickel'))
-	generic_ore_process('gold', MC, MC, TE, MC, CR, stone, TE('cinnabar'), TC, TC('molten_zinc'))
-	generic_ore_process('copper', CR, CR, TE, CR, CR, stone, MC('gold_nugget'), TC, TC('molten_gold'))
-	generic_ore_process('zinc', CR, CR, KJ, CR, CR, stone, TE('sulfur'), TC, TC('molten_lead'))
+    generic_ore_process('lead', TE, TE, TE, TE, CR, stone, MC('iron_nugget'), TC, TC('molten_iron'))
+    generic_ore_process('iron', MC, MC, TE, MC, CR, stone, TE('nickel_nugget'), TC, TC('molten_nickel'))
+    generic_ore_process('gold', MC, MC, TE, MC, CR, stone, TE('cinnabar'), TC, TC('molten_zinc'))
+    generic_ore_process('copper', CR, CR, TE, CR, CR, stone, MC('gold_nugget'), TC, TC('molten_gold'))
+    generic_ore_process('zinc', CR, CR, KJ, CR, CR, stone, TE('sulfur'), TC, TC('molten_lead'))
 ```
 
 If you have the cobalt modification enabled then just add the additional line: 
