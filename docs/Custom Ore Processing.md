@@ -107,7 +107,7 @@ as args (which I just found out yesterday xD).
 If you have the cobalt modification enabled then just add the additional line: 
 
 ```javascript
-	generic_ore_process('cobalt', TC, TC, KJ, TC, KJ, netherrack, MC('iron_nugget'), TC, TC('molten_iron'))
+    generic_ore_process('cobalt', TC, TC, KJ, TC, KJ, netherrack, MC('iron_nugget'), TC, TC('molten_iron'))
 ```
 
 3. If your ore comes with a dust variant, 
